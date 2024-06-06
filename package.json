@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev --host 127.0.0.1 --port $PORT",
+    "start": "node server.js",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro"
@@ -13,6 +13,9 @@
     "@astrojs/check": "^0.7.0",
     "@astrojs/node": "^8.2.5",
     "astro": "^4.10.0",
-    "typescript": "^5.4.5"
+    "express": "^4.19.2",
+    "express-winston": "^4.2.0",
+    "typescript": "^5.4.5",
+    "winston": "^3.13.0"
   }
 }

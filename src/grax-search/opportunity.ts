@@ -1,4 +1,6 @@
 import type { SearchFilters } from "grax_api";
+import { prevMonths } from "./date";
+import { search } from "./search";
 
 export const FilterOpen: SearchFilters = {
   fields: [
@@ -17,3 +19,17 @@ export const FilterOpen: SearchFilters = {
   ],
   mode: "and",
 };
+
+export const Year = async (endYear: number, endMonth: number) => {
+  const months = prevMonths(endYear, endMonth);
+
+  return Promise.all(months.map((month) =>
+    search(
+      "Opportunity",
+      "rangeLatestModifiedAt",
+      undefined,
+      month.toISOString(),
+      FilterOpen,
+    ),
+  ));
+}

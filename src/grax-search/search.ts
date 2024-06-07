@@ -20,6 +20,7 @@ export const health = async () => {
   return backupsHealthGet(undefined, opts);
 };
 
+
 export const search = async (
   object: string,
   timeField: string,
@@ -64,7 +65,11 @@ export const search = async (
       opts,
     );
 
-    records.push(...res.data.records!);
+    if (!res.data.records) {
+      break;
+    }
+
+    records.push(...res.data.records);
 
     if (!res.data.nextPageToken) {
       break;

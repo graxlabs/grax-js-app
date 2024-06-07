@@ -9,10 +9,9 @@ const months = await Year(2024, 6);
     months.map((month) =>
       month.map((record) => (
         <li>
-          ID: {record.id} Name:{" "}
-          {record.fields?.find((f) => f.name == "Name")?.value}
+          ID: {record.id} Name: {record.fields?.find((f) => f.name == "Name")?.value}
         </li>
-      ))
+      )),
     )
   }
 </ul>

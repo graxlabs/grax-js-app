@@ -1,12 +1,5 @@
 import { type AxiosRequestConfig } from "axios";
-import {
-  backupsHealthGet,
-  searchCreate,
-  searchGet,
-  searchRecords,
-  type SearchFilters,
-  type SearchRecord,
-} from "grax_api";
+import { searchCreate, searchGet, searchRecords, type SearchFilters, type SearchRecord } from "grax_api";
 
 const opts: AxiosRequestConfig = {
   baseURL: import.meta.env.GRAX_URL,
@@ -16,13 +9,7 @@ const opts: AxiosRequestConfig = {
   },
 };
 
-export const search = async (
-  object: string,
-  timeField: string,
-  timeFieldMin: string | undefined,
-  timeFieldMax: string,
-  filters: SearchFilters,
-) => {
+export const search = async (object: string, timeField: string, timeFieldMin: string | undefined, timeFieldMax: string, filters: SearchFilters) => {
   const res = await searchCreate(
     {
       object,

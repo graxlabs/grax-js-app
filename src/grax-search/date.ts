@@ -3,9 +3,7 @@ export const prevMonths = (endYear: number, endMonth: number) => {
 
   const dates: Date[] = [];
   for (let i = 0; i < 12; i++) {
-    dates.push(
-      new Date(Date.UTC(end.getFullYear(), end.getMonth(), 1, 0, 0, 0)),
-    );
+    dates.push(new Date(Date.UTC(end.getFullYear(), end.getMonth(), 1, 0, 0, 0)));
     end.setMonth(end.getMonth() - 1);
     end.setDate(1);
   }

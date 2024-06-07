@@ -15,41 +15,17 @@ test("health", async () => {
 });
 
 test.skip("live search", async () => {
-  let records = await search(
-    "Opportunity",
-    "rangeLatestModifiedAt",
-    "2024-01-01T00:00:00.000Z",
-    "2024-02-01T00:00:00.000Z",
-    FilterOpen,
-  );
+  let records = await search("Opportunity", "rangeLatestModifiedAt", "2024-01-01T00:00:00.000Z", "2024-02-01T00:00:00.000Z", FilterOpen);
   expect(records.length).eq(17);
 
-  records = await search(
-    "Opportunity",
-    "rangeLatestModifiedAt",
-    undefined,
-    "2024-02-01T00:00:00.000Z",
-    FilterOpen,
-  );
+  records = await search("Opportunity", "rangeLatestModifiedAt", undefined, "2024-02-01T00:00:00.000Z", FilterOpen);
   expect(records.length).eq(92);
 });
 
 test.skip("live search 2", async () => {
   const res = await Promise.all([
-    search(
-      "Opportunity",
-      "rangeLatestModifiedAt",
-      "2024-01-01T00:00:00.000Z",
-      "2024-02-01T00:00:00.000Z",
-      FilterOpen,
-    ),
-    search(
-      "Opportunity",
-      "rangeLatestModifiedAt",
-      undefined,
-      "2024-02-01T00:00:00.000Z",
-      FilterOpen,
-    ),
+    search("Opportunity", "rangeLatestModifiedAt", "2024-01-01T00:00:00.000Z", "2024-02-01T00:00:00.000Z", FilterOpen),
+    search("Opportunity", "rangeLatestModifiedAt", undefined, "2024-02-01T00:00:00.000Z", FilterOpen),
   ]);
 
   expect(res[0].length).eq(17);

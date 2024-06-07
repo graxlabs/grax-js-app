@@ -1,5 +1,5 @@
 import { assert, expect, test } from 'vitest';
-import { health} from "../src/grax-search"
+import { health, search } from "../src/grax-search"
 // Edit an assertion and save to see HMR in action
 
 test('api token', () => {
@@ -12,14 +12,7 @@ test('health', async () => {
     expect(res.data.status).eq('ok')
 });
 
-test('JSON', () => {
-	const input = {
-		foo: 'hello',
-		bar: 'world',
-	};
-
-	const output = JSON.stringify(input);
-
-	expect(output).eq('{"foo":"hello","bar":"world"}');
-	assert.deepEqual(JSON.parse(output), input, 'matches original');
+test('search', async () => {
+    const records = await search('Opportunity')
+    expect(records.length).eq(79)
 });

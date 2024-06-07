@@ -16,11 +16,6 @@ const opts: AxiosRequestConfig = {
   },
 };
 
-export const health = async () => {
-  return backupsHealthGet(undefined, opts);
-};
-
-
 export const search = async (
   object: string,
   timeField: string,

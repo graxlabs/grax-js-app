@@ -1,7 +1,8 @@
-import { assert, expect, test, } from "vitest";
-import { health, search } from "../src/grax-search/search";
+import { assert, expect, test } from "vitest";
+import { search } from "../src/grax-search/search";
 import { prevMonths } from "../src/grax-search/date";
 import { FilterOpen, Year } from "../src/grax-search/opportunity";
+import { health } from "../src/grax-search/health";
 
 test("api token", () => {
   expect(import.meta.env.GRAX_URL).toContain("secure.grax.io");
@@ -49,16 +50,16 @@ test.skip("live search 2", async () => {
       "2024-02-01T00:00:00.000Z",
       FilterOpen,
     ),
-  ])
+  ]);
 
   expect(res[0].length).eq(17);
   expect(res[1].length).eq(92);
-})
+});
 
 test("live oppt year", async () => {
-  const res = await Year(2024, 1)
+  const res = await Year(2024, 1);
   expect(res.length).eq(12);
-})
+});
 
 test("dates", async () => {
   const months = prevMonths(2024, 1);

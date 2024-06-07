@@ -1,29 +1,50 @@
 ---
-/// 
+import { FilterOpen } from "../grax-search/opportunity";
+import { search } from "../grax-search/search";
+
+declare global {
+  interface Window {
+    amounts: any;
+    data: any;
+  }
+}
+
+const month = await search(
+  "Opportunity",
+  "rangeLatestModifiedAt",
+  "2024-01-01T00:00:00.000Z",
+  "2024-02-01T00:00:00.000Z",
+  FilterOpen
+);
+
+const amounts = month
+  .map((record) => record.fields?.find((f) => f.name == "Amount")?.value)
+  .map((v) => parseFloat(v || "0"));
+
+const total = amounts.reduce((a, b) => a + b, 0);
+const data = [
+  {
+    x: ["...", "2023-12", "2024-01"],
+    y: [0, 14, total],
+    type: "bar",
+  },
+];
 ---
+
 <html>
   <head>
-    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js" charset="utf-8"
-    ></script>
+    <script define:vars={{ amounts, data }}>
+      window.amounts = amounts;
+      window.data = data;
+    </script>
     <script>
       import Plotly from "plotly.js-dist-min";
-  
-      const TESTER = document.getElementById("tester")!;
-      Plotly.newPlot(
-        TESTER,
-        [
-          {
-            x: [1, 2, 3, 4, 5],
-            y: [1, 2, 4, 8, 16],
-          },
-        ],
-        {
-          margin: { t: 0 },
-        }
-      );
+      const { amounts, data } = window;
+      console.log(amounts);
+      Plotly.newPlot("chart", data);
     </script>
   </head>
   <body>
-    <div id="tester" style="width:600px;height:250px;"></div>
+    <div id="chart"></div>
   </body>
 </html>

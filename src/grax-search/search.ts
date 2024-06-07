@@ -5,6 +5,7 @@ import {
   searchGet,
   searchRecords,
   type SearchFieldFilter,
+  type SearchFilters,
   type SearchRecord,
 } from "grax_api";
 import { type AxiosRequestConfig } from "axios";
@@ -21,17 +22,14 @@ export const health = async () => {
   return backupsHealthGet(undefined, opts);
 };
 
-export const search = async (object: string, timeField: string, timeFieldMin: string | undefined, timeFieldMax: string, filterMode: SearchFiltersMode, filterFields: SearchFieldFilter[]) => {
+export const search = async (object: string, timeField: string, timeFieldMin: string | undefined, timeFieldMax: string, filters: SearchFilters) => {
   const res = await searchCreate(
     {
       object,
       timeField,
       timeFieldMax,
       timeFieldMin,
-      filters: {
-        fields: filterFields,
-        mode: filterMode,
-      },
+      filters,
     },
     opts,
   );

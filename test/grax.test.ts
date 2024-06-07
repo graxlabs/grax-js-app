@@ -1,6 +1,7 @@
 import { assert, expect, test } from "vitest";
 import { health, search } from "../src/grax-search/search";
 import { prevMonths } from "../src/grax-search/date";
+import { FilterOpen } from "../src/grax-search/opportunity";
 
 test("api token", () => {
   expect(import.meta.env.GRAX_URL).toContain("secure.grax.io");
@@ -13,36 +14,10 @@ test("health", async () => {
 });
 
 test("live search", async () => {
-  let records = await search("Opportunity", "rangeLatestModifiedAt", "2024-01-01T00:00:00.000Z", "2024-02-01T00:00:00.000Z", "and", [
-    {
-      field: "StageName",
-      filterType: "eq",
-      not: true,
-      value: "Closed Lost",
-    },
-    {
-      field: "StageName",
-      filterType: "eq",
-      not: true,
-      value: "Closed Won",
-    },
-  ]);
+  let records = await search("Opportunity", "rangeLatestModifiedAt", "2024-01-01T00:00:00.000Z", "2024-02-01T00:00:00.000Z", FilterOpen);
   expect(records.length).eq(17);
 
-  records = await search("Opportunity", "rangeLatestModifiedAt", undefined, "2024-02-01T00:00:00.000Z", "and", [
-    {
-      field: "StageName",
-      filterType: "eq",
-      not: true,
-      value: "Closed Lost",
-    },
-    {
-      field: "StageName",
-      filterType: "eq",
-      not: true,
-      value: "Closed Won",
-    },
-  ]);
+  records = await search("Opportunity", "rangeLatestModifiedAt", undefined, "2024-02-01T00:00:00.000Z", FilterOpen);
   expect(records.length).eq(92);
 });
 

@@ -1,4 +1,4 @@
-import type { SearchFilters } from "grax_api"
+import type { SearchFilters } from "grax_api";
 
 export const FilterOpen: SearchFilters = {
   fields: [
@@ -16,4 +16,4 @@ export const FilterOpen: SearchFilters = {
     },
   ],
   mode: "and",
-}
+};

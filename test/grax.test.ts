@@ -14,15 +14,27 @@ test("health", async () => {
 });
 
 test("live search", async () => {
-  let records = await search("Opportunity", "rangeLatestModifiedAt", "2024-01-01T00:00:00.000Z", "2024-02-01T00:00:00.000Z", FilterOpen);
+  let records = await search(
+    "Opportunity",
+    "rangeLatestModifiedAt",
+    "2024-01-01T00:00:00.000Z",
+    "2024-02-01T00:00:00.000Z",
+    FilterOpen,
+  );
   expect(records.length).eq(17);
 
-  records = await search("Opportunity", "rangeLatestModifiedAt", undefined, "2024-02-01T00:00:00.000Z", FilterOpen);
+  records = await search(
+    "Opportunity",
+    "rangeLatestModifiedAt",
+    undefined,
+    "2024-02-01T00:00:00.000Z",
+    FilterOpen,
+  );
   expect(records.length).eq(92);
 });
 
 test("dates", async () => {
-  const months = prevMonths(2024, 1)
+  const months = prevMonths(2024, 1);
   expect(months).toEqual([
     new Date("2024-01-01T00:00:00.000Z"),
     new Date("2023-12-01T00:00:00.000Z"),
@@ -36,5 +48,5 @@ test("dates", async () => {
     new Date("2023-04-01T00:00:00.000Z"),
     new Date("2023-03-01T00:00:00.000Z"),
     new Date("2023-02-01T00:00:00.000Z"),
-  ])
-})
+  ]);
+});

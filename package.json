@@ -17,8 +17,12 @@
     "express": "^4.19.2",
     "express-winston": "^4.2.0",
     "grax_api": "github:graxlabs/grax-js",
+    "plotly.js-dist-min": "^2.33.0",
     "typescript": "^5.4.5",
     "vitest": "^1.6.0",
     "winston": "^3.13.0"
+  },
+  "devDependencies": {
+    "@types/plotly.js-dist-min": "^2.3.4"
   }
 }

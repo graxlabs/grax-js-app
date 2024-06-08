@@ -1,35 +1,11 @@
 ---
-import { Year } from "../grax-search/opportunity";
-
-const months = await Year(2024, 6);
-const labels = months.map((month, n) => 12 - n);
-const totals = months.map((month) => {
-  const amounts = month.map((record) => record.fields?.find((f) => f.name == "Amount")?.value).map((v) => parseFloat(v || "0"));
-
-  return amounts.reduce((a, b) => a + b, 0);
-});
-
-const data = [
-  {
-    x: labels,
-    y: totals,
-    type: "bar",
-  },
-];
+import Plot from "../components/Plot.astro";
 ---
 
 <html>
-  <head>
-    <script define:vars={{ data }}>
-      window.data = data;
-    </script>
-    <script>
-      import Plotly from "plotly.js-dist-min";
-      const { data } = window;
-      Plotly.newPlot("chart", data);
-    </script>
-  </head>
   <body>
+    <h1>Building your chart...</h1>
     <div id="chart"></div>
+    <Plot root="chart" />
   </body>
 </html>

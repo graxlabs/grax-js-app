@@ -10,6 +10,7 @@ export const opts: AxiosRequestConfig = {
 
 declare global {
   interface Window {
-    data: any;
+    data: Plotly.Data[];
+    root: string;
   }
 }

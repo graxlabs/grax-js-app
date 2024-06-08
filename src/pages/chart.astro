@@ -2,6 +2,7 @@
 import Plot from "../components/Plot.astro";
 import { Year } from "../grax-search/opportunity";
 import { Bar } from "../grax-search/plot";
+import Layout from "../layouts/Layout.astro";
 
 const OpptYear = Bar(
   Year(2024, 6),
@@ -14,10 +15,15 @@ const OpptYear = Bar(
 );
 ---
 
-<html>
-  <body>
-    <h1 id="loading">Searching GRAX historical data...</h1>
-    <div id="chart"></div>
-    <Plot data={OpptYear} loading="loading" root="chart" />
-  </body>
-</html>
+<Layout title="Open Pipeline">
+  <div class="flex flex-col items-center justify-center" id="loading">
+    <p>Searching historical data...</p>
+    <progress class="progress w-56"></progress>
+  </div>
+
+  <div class="h-screen flex flex-col items-center justify-center">
+    <div id="chart" class="h-3/4"></div>
+  </div>
+
+  <Plot data={OpptYear} loading="loading" root="chart" />
+</Layout>

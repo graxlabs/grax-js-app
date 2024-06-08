@@ -1,0 +1,13 @@
+---
+import Plot from "../components/Table.astro";
+import { Year } from "../grax-search/opportunity";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Monthly Opportunities">
+  <div class="flex flex-col items-center justify-center" id="loading">
+    <p>Searching historical data...</p>
+    <progress class="progress w-56"></progress>
+  </div>
+  <Plot datas={Year(2024, 6)} loading="loading" />
+</Layout>

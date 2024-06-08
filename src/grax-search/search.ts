@@ -1,12 +1,29 @@
-import { type AxiosRequestConfig } from "axios";
-import { searchCreate, searchGet, searchRecords, type SearchFilters, type SearchRecord } from "grax_api";
+import { searchCreate, searchGet, searchRecords, type SearchCreate, type SearchFilters, type SearchRecord } from "grax_api";
+import { del, get, has, hash, set } from "./cache";
+import { opts } from "./config";
 
-const opts: AxiosRequestConfig = {
-  baseURL: import.meta.env.GRAX_URL,
-  headers: {
-    Authorization: `Bearer ${import.meta.env.GRAX_TOKEN}`,
-    "User-Agent": "grax-js-app/1.0.0",
-  },
+export const searchCache = async (
+  object: string,
+  timeField: string,
+  timeFieldMin: string | undefined,
+  timeFieldMax: string,
+  filters: SearchFilters,
+  invalidate?: boolean,
+) => {
+  const k = `${object}-${hash({ object, timeField, timeFieldMax, timeFieldMin, filters })}`;
+
+  if (invalidate) {
+    await del(k);
+  }
+
+  if (await has(k)) {
+    return (await get(k)) as SearchRecord[];
+  }
+
+  const out = await search(object, timeField, timeFieldMin, timeFieldMax, filters);
+  await set(k, out);
+
+  return out;
 };
 
 export const search = async (object: string, timeField: string, timeFieldMin: string | undefined, timeFieldMax: string, filters: SearchFilters) => {

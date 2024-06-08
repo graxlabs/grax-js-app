@@ -24,6 +24,7 @@
     "winston": "^3.13.0"
   },
   "devDependencies": {
+    "@types/node": "^20.14.2",
     "@types/plotly.js-dist-min": "^2.3.4",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.5",

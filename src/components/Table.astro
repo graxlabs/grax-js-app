@@ -1,0 +1,47 @@
+---
+import type { SearchRecord } from "grax_api";
+import TableData from "./TableData.astro";
+
+interface Props {
+  datas: Promise<SearchRecord[][]>;
+  loading?: string;
+}
+const { loading, datas: d } = Astro.props;
+const datas = await d;
+---
+
+<script define:vars={{ loading }} is:inline>
+  if (loading) {
+    const el = document.getElementById(loading);
+    el && el.remove();
+  }
+</script>
+
+<div class="overflow-x-auto h-screen">
+  <table class="table table-zebra table-xs table-pin-rows">
+    {
+      datas.map((data, n) => (
+        <>
+          <thead>
+            <tr>
+              <th>Month {n}</th>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((record) => (
+              <tr>
+                <th />
+                <td>{record.id}</td>
+                <td>{record.fields?.find((f) => f.name == "Name")?.value}</td>
+                <td>{record.fields?.find((f) => f.name == "Amount")?.value}</td>
+              </tr>
+            ))}
+          </tbody>
+        </>
+      ))
+    }
+  </table>
+</div>

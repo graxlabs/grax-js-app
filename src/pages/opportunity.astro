@@ -1,11 +1,10 @@
 ---
-import List from "../components/List.astro";
+import Table from "../components/Table.astro";
 import { Year } from "../grax-search/opportunity";
+import Layout from "../layouts/Layout.astro";
 ---
 
-<html>
-  <body>
-    <h1 id="loading">Searching GRAX historical data...</h1>
-    <List datas={Year(2024, 6)} loading="loading" />
-  </body>
-</html>
+<Layout title="Opportunity Table">
+  <h1 id="loading">Searching GRAX historical data...</h1>
+  <Table datas={Year(2024, 6)} loading="loading" />
+</Layout>

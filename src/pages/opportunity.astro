@@ -1,10 +1,11 @@
 ---
 import List from "../components/List.astro";
+import { Year } from "../grax-search/opportunity";
 ---
 
 <html>
   <body>
-    Loading your opportunity report...
-    <List />
+    <h1 id="loading">Searching GRAX historical data...</h1>
+    <List datas={Year(2024, 6)} loading="loading" />
   </body>
 </html>

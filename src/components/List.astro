@@ -1,13 +1,29 @@
 ---
-import { Year } from "../grax-search/opportunity";
+import type { SearchRecord } from "grax_api";
 
-const months = await Year(2024, 6);
+interface Props {
+  datas: Promise<SearchRecord[][]>;
+  loading?: string;
+}
+const { loading, datas: d } = Astro.props;
+const datas = await d;
+
+// import { Year } from "../grax-search/opportunity";
+
+// const months = await Year(2024, 6);
 ---
+
+<script define:vars={{ loading }} is:inline>
+  if (loading) {
+    const el = document.getElementById(loading);
+    el && el.remove();
+  }
+</script>
 
 <ul>
   {
-    months.map((month) =>
-      month.map((record) => (
+    datas.map((data) =>
+      data.map((record) => (
         <li>
           ID: {record.id} Name: {record.fields?.find((f) => f.name == "Name")?.value}
         </li>

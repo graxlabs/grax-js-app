@@ -1,28 +1,22 @@
 ---
-import { Year } from "../grax-search/opportunity";
+interface Props {
+  data: Promise<Plotly.Data[]>;
+  loading?: string;
+  root: string;
+}
 
-const { root } = Astro.props;
-
-const months = await Year(2024, 6);
-const labels = months.map((month, n) => 12 - n);
-const totals = months.map((month) => {
-  const amounts = month.map((record) => record.fields?.find((f) => f.name == "Amount")?.value).map((v) => parseFloat(v || "0"));
-
-  return amounts.reduce((a, b) => a + b, 0);
-});
-
-const data: Plotly.Data[] = [
-  {
-    x: labels,
-    y: totals,
-    type: "bar",
-  },
-];
+const { loading, data: d, root } = Astro.props;
+const data = await d;
 ---
 
-<script define:vars={{ data, root }} is:inline>
+<script define:vars={{ data, loading, root }} is:inline>
   window.data = data;
   window.root = root;
+
+  if (loading) {
+    const el = document.getElementById(loading);
+    el && el.remove();
+  }
 </script>
 
 <script>

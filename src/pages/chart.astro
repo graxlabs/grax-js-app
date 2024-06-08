@@ -1,11 +1,23 @@
 ---
 import Plot from "../components/Plot.astro";
+import { Year } from "../grax-search/opportunity";
+import { Bar } from "../grax-search/plot";
+
+const OpptYear = Bar(
+  Year(2024, 6),
+  (datas) => datas.map((month, n) => (12 - n).toString()),
+  (datas) =>
+    datas.map((month) => {
+      const amounts = month.map((record) => record.fields?.find((f) => f.name == "Amount")?.value).map((v) => parseFloat(v || "0"));
+      return amounts.reduce((a, b) => a + b, 0);
+    }),
+);
 ---
 
 <html>
   <body>
-    <h1>Building your chart...</h1>
+    <h1 id="loading">Searching GRAX historical data...</h1>
     <div id="chart"></div>
-    <Plot root="chart" />
+    <Plot data={OpptYear} loading="loading" root="chart" />
   </body>
 </html>

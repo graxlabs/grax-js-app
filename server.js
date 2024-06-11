@@ -8,9 +8,14 @@ import { Strategy } from "passport-forcedotcom";
 
 const app = express();
 
+if (process.env.SFDC_ORG_ID === undefined) {
+  console.error("SFDC_ORG_ID is not set");
+  process.exit(1);
+}
+
 app.use(
   session({
-    secret: "your-secret-key",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
   }),
@@ -25,21 +30,23 @@ passport.use(
       clientID: process.env.SFDC_CLIENT_ID,
       clientSecret: process.env.SFDC_CLIENT_SECRET,
       scope: ["id"],
-      callbackURL: "https://nzoschke.ngrok.dev/auth/forcedotcom/callback",
+      callbackURL: process.env.SFDC_CALLBACK_URL,
     },
     function verify(token, refreshToken, profile, done) {
       console.log(profile);
+      if (!profile.id.startsWith(process.env.SFDC_ORG_ID)) {
+        return cb(null, false, { message: "Incorrect SFDC org." });
+      }
+
       return done(null, profile);
     },
   ),
 );
 
-// Serialize user into the sessions
 passport.serializeUser((user, done) => {
   done(null, user);
 });
 
-// Deserialize user from the sessions
 passport.deserializeUser((user, done) => {
   done(null, user);
 });
@@ -58,15 +65,10 @@ app.use(
   }),
 );
 
-app.get("/", (req, res) => {
-  res.send('<a href="/auth/forcedotcom">Login with Salesforce</a>');
-});
-
 app.get("/auth/forcedotcom", passport.authenticate("forcedotcom"));
 
 app.get("/auth/forcedotcom/callback", passport.authenticate("forcedotcom", { failureRedirect: "/" }), (req, res) => {
-  // Successful authentication, redirect home.
-  res.redirect("/profile");
+  res.redirect("/private/chart");
 });
 
 app.get("/profile", (req, res) => {
@@ -88,14 +90,18 @@ app.get("/logout", (req, res) => {
 });
 
 function auth(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
+  if (req.url.startsWith("/private")) {
+    if (req.isAuthenticated()) {
+      return next();
+    }
+    return res.redirect("/");
   }
-  res.redirect("/");
+
+  // skip auth for root, assets and dataclips
+  return next();
 }
 
-const base = "/";
 app.use("/", auth, express.static("dist/client/"));
 app.use(ssrHandler);
 
-app.listen(process.env.PORT || 8080);
+app.listen(process.env.PORT || 4321);

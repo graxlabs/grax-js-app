@@ -1,60 +1,34 @@
 # GRAX JS App
 
-Historical Data
+Reuser your Salesforce History with GRAX JS App and SDK
 
 ## SFDC OAuth
 
+Create connected app:
+
 - Settings -> App Manager -> New Connected App
 - Enable OAuth Settings
-- Callback URLs:
-  - https://EXAMPLE.ngrok.dev/auth/forcedotcom/callback
-  - https://EXAMPLE.herokuapp.com/auth/forcedotcom/callback
+- Callback URL: https://EXAMPLE.herokuapp.com/auth/forcedotcom/callback
 - Scope: "Access the identity URL service"
 - Uncheck "Require Proof Key for Code Exchange"
 
-Set `SFDC_CALLBACK_URL`, `SFDC_CLIENT_ID`, `SFDC_CLIENT_SECRET` in `.env`
+Set config in `.env` or with `heroku config:set`
+
+- `SESSION_SECRET`
+- `SFDC_CALLBACK_URL`
+- `SFDC_CLIENT_ID`
+- `SFDC_CLIENT_SECRET`
+
+To test locally:
 
 ```bash
-ngrok http --domain nzoschke.ngrok.dev 4321
+# add Callback URL: https://EXAMPLE.ngrok.dev/auth/forcedotcom/callback
+export $(cat .env)
+node server.js
+ngrok http --domain EXAMPLE.ngrok.dev 4321
 ```
 
-# Astro Starter Kit: Basics
-
-```sh
-npm create astro@latest -- --template basics
-```
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
+# Astro Starter Kit
 
 ## 🧞 Commands
 
@@ -68,7 +42,3 @@ All commands are run from the root of the project, from a terminal:
 | `npm run preview`         | Preview your build locally, before deploying     |
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

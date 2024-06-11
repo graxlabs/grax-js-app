@@ -32,6 +32,13 @@ It also demonstrates how you can search and analyze your Salesforce history and 
 
 This uses the GRAX Search API to get months or years of Opportunity history. The `grax-search` module makes this API easy to use, just specify an object like `Opportunity`.
 
+```js
+import { Year } from "grax-search/opportunity";
+const months = await Year(2024, 6);
+
+// months now has 12 snapshots of opportunity data for sharing or visualizing
+```
+
 This data can be passed to web app components like `Plot.astro` or `Table.astro`.
 
 Alternatively it can be passed to API endpoints like `csv.ts`.

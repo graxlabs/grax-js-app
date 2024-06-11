@@ -2,6 +2,20 @@
 
 Reuse your Salesforce History with GRAX JS App and SDK
 
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://www.heroku.com/deploy/?template=https://github.com/graxlabs/grax-js-app)
+
+## Motivation
+
+GRAX is the easiest way to capture all your Salesforce history for reuse.
+
+First you can deploy GRAX to Heroku with two clicks to start capturing all the Salesforce history. See the [GRAX Deployment Guide for Heroku](https://documentation.grax.com/docs/heroku-install) to learn more.
+
+Now you've empowered your developers to build and run new apps on Heroku that reuse this data for analytics, internal tooling and customer-facing experiences.
+
+This app demonstrates how to visualize your data in a Heroku web app.
+
+It also demonstrates how you can search and analyze your Salesforce history and share the results with colleagues, and third-party tools like Google Sheets and Excel.
+
 ## Security
 
 Pages under `/private` require SFDC OAuth to the Org ID specified in `SFDC_ORG_ID`.

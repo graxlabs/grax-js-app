@@ -1,3 +1,23 @@
+# GRAX JS App
+
+Historical Data
+
+## SFDC OAuth
+
+- Settings -> App Manager -> New Connected App
+- Enable OAuth Settings
+- Callback URLs:
+  - https://EXAMPLE.ngrok.dev/auth/forcedotcom/callback
+  - https://EXAMPLE.herokuapp.com/auth/forcedotcom/callback
+- Scope: "Access the identity URL service"
+- Uncheck "Require Proof Key for Code Exchange"
+
+Set `SFDC_CALLBACK_URL`, `SFDC_CLIENT_ID`, `SFDC_CLIENT_SECRET` in `.env`
+
+```bash
+ngrok http --domain nzoschke.ngrok.dev 4321
+```
+
 # Astro Starter Kit: Basics
 
 ```sh

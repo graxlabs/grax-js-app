@@ -12,9 +12,11 @@ First you can deploy GRAX to Heroku with two clicks to start capturing all the S
 
 Now you've empowered your developers to build and run new apps on Heroku that reuse this data for analytics, internal tooling and customer-facing experiences.
 
-This app demonstrates how to visualize your data in a Heroku web app.
+This app demonstrates how to search, analyze and visualize your data in a Heroku web app, then how you can share these results with colleagues, and third-party tools like Google Sheets and Excel.
 
-It also demonstrates how you can search and analyze your Salesforce history and share the results with colleagues, and third-party tools like Google Sheets and Excel.
+```js
+=IMPORTDATA("https://EXAMPLE.herokuapp.com/shared/opportunities-12mo.csv")
+```
 
 ## Deploy
 

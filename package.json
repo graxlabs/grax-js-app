@@ -16,6 +16,7 @@
     "@astrojs/node": "^8.2.5",
     "@astrojs/tailwind": "^5.1.0",
     "astro": "^4.10.0",
+    "csv-stringify": "^6.5.0",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "express-winston": "^4.2.0",

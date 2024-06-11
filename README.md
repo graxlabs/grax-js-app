@@ -1,6 +1,18 @@
 # GRAX JS App
 
-Reuser your Salesforce History with GRAX JS App and SDK
+Reuse your Salesforce History with GRAX JS App and SDK
+
+## Security
+
+Pages under `/private` require SFDC OAuth to the Org ID specified in `SFDC_ORG_ID`.
+Pages under `/shared` require secret specified in `SHARE_TOKEN` and passed as a query param `?t=<SHARE_TOKEN>`
+
+## Dev
+
+```bash
+export $(cat .env)
+npm run dev
+```
 
 ## SFDC OAuth
 

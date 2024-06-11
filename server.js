@@ -8,10 +8,12 @@ import { Strategy } from "passport-forcedotcom";
 
 const app = express();
 
-if (process.env.SFDC_ORG_ID === undefined) {
-  console.error("SFDC_ORG_ID is not set");
-  process.exit(1);
-}
+["SFDC_ORG_ID", "SHARE_TOKEN"].forEach((v) => {
+  if (process.env[v] == undefined) {
+    console.error(`${v} is not set`);
+    process.exit(1);
+  }
+});
 
 app.use(
   session({
@@ -71,13 +73,6 @@ app.get("/auth/forcedotcom/callback", passport.authenticate("forcedotcom", { fai
   res.redirect("/private/chart");
 });
 
-app.get("/profile", (req, res) => {
-  if (!req.isAuthenticated()) {
-    return res.redirect("/");
-  }
-  res.send(`Hello, ${req.user.displayName}! <br> <a href="/logout">Logout</a>`);
-});
-
 app.get("/logout", (req, res) => {
   req.logout((err) => {
     if (err) {
@@ -90,14 +85,23 @@ app.get("/logout", (req, res) => {
 });
 
 function auth(req, res, next) {
-  if (req.url.startsWith("/private")) {
+  const url = new URL(req.url, "http://localhost");
+  if (url.pathname.startsWith("/private")) {
     if (req.isAuthenticated()) {
       return next();
     }
     return res.redirect("/");
   }
 
-  // skip auth for root, assets and dataclips
+  if (url.pathname.startsWith("/shared")) {
+    if (url.searchParams.get("t") == process.env.SHARE_TOKEN) {
+      return next();
+    }
+
+    return res.send(`sharing token invalid`);
+  }
+
+  // skip auth for root and assets
   return next();
 }
 
